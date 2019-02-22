@@ -99,11 +99,7 @@ def setupParser():
 if __name__ == "__main__":
     args = setupParser()
     input_file, output_file, sample_index = parseArguments(args)
-
-    print sample_index  
-    #with gzopen.gzopen(input_file) as input_fastq:
-    #    line_chunk =  itertools.islice(input_fastq, 1e6)
-       
+ 
     with gzopen.gzopen(input_file) as input_fastq:
         with gzip.open(output_file, "wb") as output_fastq:
             for line in line_chunk:
