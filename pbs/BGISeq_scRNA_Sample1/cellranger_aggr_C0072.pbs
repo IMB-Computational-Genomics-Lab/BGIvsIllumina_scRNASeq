@@ -1,0 +1,35 @@
+##########################################################################
+#
+#  Script: cellranger_batch_count.pbs
+#  Note: For information on how to operate this script, refer to README.md
+#  Cell Ranger Version: 2.1.0
+#
+##########################################################################
+## PBS SETTINGS
+#PBS -q normal
+#PBS -S /bin/bash
+#PBS -l select=1:ncpus=8:mem=126GB
+
+## ADJUSTABLE SETTINGS
+#PBS -N C0072
+#PBS -l walltime=72:00:00
+#PBS -r n
+
+# IMPORTANT PATHS
+CELLRANGER_PATH=/shares/powell/pipelines/cellranger-2.2.0
+OUTPUT_DIR=/shares/powell/data/experimental_data/CLEAN/BGISeq_scRNA
+ID=C0072_Comparison_hg19
+
+### SET UP ENVIRONMENT
+export PATH=${CELLRANGER_PATH}:$PATH
+source ${CELLRANGER_PATH}/sourceme.bash
+
+### GO TO OUTPUT DIRECTORY - THIS NEEDS TO EXIST
+cd $OUTPUT_DIR
+
+### RUN CELL RANGER
+time cellranger aggr --id=${ID} --csv=${PBS_O_WORKDIR}/C0072.csv --normalize=raw --nosecondary
+
+### CREATE AND BROADCAST WEBHOOK MESSAGE
+WEBHOOK_MSG+= ${ID}
+bash ${WEBHOOK} "${WEBHOOK_MSG}"

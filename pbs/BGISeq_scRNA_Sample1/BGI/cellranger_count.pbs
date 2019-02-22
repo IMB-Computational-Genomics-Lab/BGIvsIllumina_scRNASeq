@@ -1,0 +1,36 @@
+##########################################################################
+#
+#  Script: cellranger_batch_count.pbs
+#  Note: For information on how to operate this script, refer to README.md
+#  Cell Ranger Version: 2.1.0
+#
+##########################################################################
+## PBS SETTINGS
+#PBS -q normal
+#PBS -S /bin/bash
+#PBS -l select=1:ncpus=8:mem=126GB
+
+## ADJUSTABLE SETTINGS
+#PBS -N cellrangerCount
+#PBS -l walltime=72:00:00
+#PBS -r n
+
+# IMPORTANT PATHS
+INPUT_DIR=/shares/powell/data/experimental_data/PROCESSED/BGISeq_scRNA/BGISeq_scRNA_Sample1
+CELLRANGER_PATH=/shares/powell/pipelines/cellranger-2.2.0
+REF_PATH=/shares/powell/data/reference_data/cellranger-1.2.0/refdata-cellranger-hg19-1.2.0
+OUTPUT_DIR=/shares/powell/data/experimental_data/CLEAN/BGISeq_scRNA
+
+### SET UP ENVIRONMENT
+export PATH=${CELLRANGER_PATH}:$PATH
+source ${CELLRANGER_PATH}/sourceme.bash
+
+### GO TO OUTPUT DIRECTORY - THIS NEEDS TO EXIST
+cd $OUTPUT_DIR
+
+### RUN CELL RANGER
+time cellranger count --id=BGISeq_scRNA_Sample1 --sample=BGISeq_scRNA_Sample1_AAGACGGA,BGISeq_scRNA_Sample1_CGAGGCTC,BGISeq_scRNA_Sample1_GTCCTTCT,BGISeq_scRNA_Sample1_TCTTAAAG --fastqs=${INPUT_DIR} --localmem=126 --localcores=8 --transcriptome=${REF_PATH} --nosecondary --expect-cells 10000 --chemistry threeprime
+
+### CREATE AND BROADCAST WEBHOOK MESSAGE
+WEBHOOK_MSG+= ${ID}
+bash ${WEBHOOK} "${WEBHOOK_MSG}"
