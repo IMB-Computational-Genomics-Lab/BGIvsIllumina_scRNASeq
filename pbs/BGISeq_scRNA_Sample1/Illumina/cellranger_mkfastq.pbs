@@ -1,0 +1,45 @@
+##########################################################################
+#
+#  Script: cellranger_mkfastq.pbs
+#  Note: For information on how to operate this script, refer to README.md
+#  Cell Ranger Version: 2.0.0
+#
+##########################################################################
+## PBS SETTINGS
+#PBS -q normal
+#PBS -S /bin/bash
+#PBS -r n
+#PBS -l select=1:ncpus=8:mem=62GB
+
+## ADJUSTABLE SETTINGS
+#PBS -N cellrangerMkFASTQ
+#PBS -l walltime=6:00:00
+
+## CORE DIRECTORIES ON DELTA
+CELLRANGER_PATH=/opt/Modules/cellranger/2.0.0
+WEBHOOK=/shares/common/groups/Group-Powell/applications/snippets/WebHookBot.bsh
+
+## USER-DEFINED DIRECTORIES
+RAW_PATH=/shares/powell/data/experimental_data/RAW/IPSCMedia_scRNA/170803_NS500239_0243_AH5JWNBGX3
+CSV_PATH=${PBS_O_WORKDIR}/H5JWNBGX3.csv
+OUTPUT_PATH=/shares/powell/data/experimental_data/PROCESSING/IPSCMedia_scRNA
+
+## WEBHOOK MESSAGE
+WEBHOOK_MSG="IPSCMedia_scRNA mkfastq"
+
+## RUN PROCESSES
+export PATH=${CELLRANGER_PATH}:$PATH
+module load bcl2fastq/2.17
+source ${CELLRANGER_PATH}/sourceme.bash
+
+## Preflight checks
+echo "Running Cell Ranger mkfastq with INPUT PATH: ${RAW_PATH} and OUTPUT PATH: ${OUTPUT_PATH}"
+
+## Running the program
+cd $OUTPUT_PATH
+time cellranger mkfastq --run=${RAW_PATH} --csv=${CSV_PATH}
+
+## Finishing up run and broadcasting to Slack
+module unload bcl2fastq/2.17
+
+bash ${WEBHOOK} "${WEBHOOK_MSG}"

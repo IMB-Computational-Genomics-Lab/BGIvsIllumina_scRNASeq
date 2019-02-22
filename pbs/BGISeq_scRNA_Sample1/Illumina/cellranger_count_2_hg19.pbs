@@ -1,0 +1,38 @@
+## PBS SETTINGS
+#PBS -q normal
+#PBS -S /bin/bash
+#PBS -l select=1:ncpus=16:mem=126GB
+
+## ADJUSTABLE SETTINGS
+#PBS -N cellrangerCount2
+#PBS -l walltime=48:00:00
+#PBS -r n
+
+## CORE DIRECTORIES ON DELTA
+CELLRANGER_PATH=/shares/powell/pipelines/cellranger-2.2.0
+
+## ENTER INFORMATION HERE
+### INPUT VARIABLES
+INDEX=SI-GA-A9
+SAMPLE=IPSCMedia_scRNA_Sample2
+ID=IPSCMedia_scRNA_Sample2_V3
+
+# FILE PATHS
+REF_PATH=/shares/powell/data/reference_data/cellranger-1.2.0/refdata-cellranger-hg19-1.2.0
+FASTQ_DIR=/shares/powell/data/experimental_data/PROCESSING/IPSCMedia_scRNA/H5JWNBGX3/outs/fastq_path
+OUTPUT_DIR=/shares/powell/data/experimental_data/CLEAN/IPSCMedia_scRNA
+
+## INITIATE THE PIPELINE
+### OUTPUT HELPFUL INFORMATION TO THE LOG
+echo "Running Cell Ranger 2.2.0 on $( hostname )"
+echo "count with input from ${FASTQ_DIR} and outputting to ${OUTPUT_DIR}, using reference located at ${REF_PATH}."
+
+### SET UP ENVIRONMENT
+export PATH=${CELLRANGER_PATH}:$PATH
+source ${CELLRANGER_PATH}/sourceme.bash
+
+### GO TO OUTPUT DIRECTORY - THIS NEEDS TO EXIST
+cd $OUTPUT_DIR
+
+### RUN CELL RANGER
+time cellranger count --id=${ID} --sample=${SAMPLE} --indices=${INDEX} --fastqs=${FASTQ_DIR} --localmem=100 --localcores=16 --transcriptome=${REF_PATH} --expect-cells=10000
