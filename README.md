@@ -62,9 +62,29 @@ Illumina headers have the following structure (as taken from [here](http://suppo
            
 Please note that this script will set the instrument ID to MGISEQ-2000.
 
+Use the following command below to use the script, and ensure you validate the converted fastq.gz files with [fqtools](https://github.com/alastair-droop/fqtools).
 #### Usage
 ```bash
 python2.7 convertHeaders.py /
         -i BGI/BGISeq_scRNA_Sample1_AAGACGGA_S1_L001_R1_001.fastq.gz \
         -o Illumina/BGISeq_scRNA_Sample1_AAGACGGA_S1_L001_R1_001.fastq.gz
 ```
+
+## Sequencing quality assessment
+Quality of MGISEQ-2000 data was accessed with [FastQC/0.11.7](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) and [MultiQC](https://multiqc.info/).
+
+## Processing
+All data was processed with 10x Genomics Cell Ranger v 2.2.0 pipeline. Jobs were run on a HPC using PBS, but scripts can be adapted for use with other job schedulers. You may access the scripts [here](pbs/).
+
+## Depth equalization
+### cellranger aggr
+
+#### Matching BAM alignments to downsampled data
+
+### Downsampling to 1e6 reads using DropletUtils
+
+## Post-processing
+### General comparative analysis
+### SNP calling
+### CROP-seq guide detection
+
