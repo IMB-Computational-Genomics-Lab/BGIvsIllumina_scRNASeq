@@ -1,0 +1,5 @@
+sample,index,fastq_dir
+BGISeq_scRNA_Sample1,SI-GA-A9,/shares/powell/data/experimental_data/RAW/BGISeq_scRNA/C0072
+BGISeq_scRNA_Sample2,SI-GA-D4,/shares/powell/data/experimental_data/RAW/BGISeq_scRNA/C0104
+BGISeq_scRNA_Sample3,SI-GA-F1,/shares/powell/data/experimental_data/RAW/BGISeq_scRNA/C0213
+BGISeq_scRNA_Sample4,SI-GA-F2,/shares/powell/data/experimental_data/RAW/BGISeq_scRNA/C0214
