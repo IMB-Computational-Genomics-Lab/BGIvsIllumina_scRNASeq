@@ -8,7 +8,7 @@ Code repository for the publication "Comparative performance of the BGI and Illu
 ### Reformat filenames
 The Cell Ranger pipeline from 10x Genomics requires filenames to be formatted in a specific manner. As we have the reads organised into paired end reads without an index read file, we need to add the index information to the filename.
 
-The [reformat_filenames.bash](bash/reformat_filenames.bash) parses through the sample information stored in [samplesheet.csv](metadata/samplesheet.csv) and retrieves the sample index sequences associated with the sample from the [chromium-shared-sample-indexes-plate.csv](metadata/chromium-shared-sample-indexes-plate.csv) file. The script then reformats the headers into the correct format. Please modify the script to suite your own filenames if you are using this on your own data.
+The [reformat_filenames.bash](bash/reformat_filenames.bash) script parses through the sample information stored in [samplesheet.csv](metadata/samplesheet.csv) and retrieves the sample index sequences associated with the sample from the [chromium-shared-sample-indexes-plate.csv](metadata/chromium-shared-sample-indexes-plate.csv) file. The script then reformats the headers into the correct format. Please modify the script to suite your own filenames if you are using this on your own data.
 
 #### Usage
 ```bash

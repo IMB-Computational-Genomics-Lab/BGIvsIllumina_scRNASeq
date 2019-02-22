@@ -7,6 +7,8 @@ import gzip
 # Fastq.gz module by Guillaume Filion
 import gzopen
 
+# Parses the entry
+
 # Retrieves arguments inputted by user
 def parseArguments(args):
     # Retrieve from parser
@@ -29,14 +31,24 @@ def setupParser():
     args = parser.parse_args()
     return(args)
 
-
 # Code starts here
 if __name__ == "__main__":
     args = setupParser()
-    input_file, output_file, convert_opt, sample_index = parseArguments(args)
-        
+    input_file, output_file, sample_index = parseArguments(args)
+
+       
     with gzopen.gzopen(input_file) as input_fastq:
-        with gzip.open(output_file, "wb") as output_fastq:
-            for line in input_fastq:
-                parsed_line = parseLine(line, sample_index = sample_index)
-                output_fastq.write(parsed_line)
+        line_chunk =  islice(input_fastq, 1e6)
+
+        for line in line_chunk:
+            print line            
+    #with gzopen.gzopen(input_file) as input_fastq:
+    #    with gzip.open(output_file, "wb") as output_fastq:
+            # This opens the fastq file as a datastream
+            # Light on memory, takes forever though
+
+    #        line_chunk =  islice(input_fastq, 24)
+            
+    #        for line in line_chunk:
+    #            parsed_line = parseLine(line, sample_index = sample_index)
+    #            output_fastq.write(parsed_line)
