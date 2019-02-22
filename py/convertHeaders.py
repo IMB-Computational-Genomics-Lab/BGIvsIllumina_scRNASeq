@@ -109,19 +109,5 @@ if __name__ == "__main__":
             for line in line_chunk:
                 parsed_line = parseLine(line, sample_index = sample_index)
                 output_fastq.write(parsed_line)
-
-    #    for line in line_chunk:
-    #        parsed_line = parseLine(line, sample_index = sample_index)
-    #        print parsed_line
-    #with gzopen.gzopen(input_file) as input_fastq:
-    #    with gzip.open(output_file, "wb") as output_fastq:
-            # This opens the fastq file as a datastream
-            # Light on memory, takes forever though
-
-    #        line_chunk =  islice(input_fastq, 24)
-            
-    #        for line in line_chunk:
-    #            parsed_line = parseLine(line, sample_index = sample_index)
-    #            output_fastq.write(parsed_line)
-
+  
     print "Conversion of %s complete!" % input_file
