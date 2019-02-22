@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+import os
 import argparse
 import re
 import gzip
@@ -82,8 +83,7 @@ def parseArguments(args):
     output_file = args.output
     
     # Extract barcode from filename
-    sample_index = "AAGACGGA"
-    #sample_index = input_file.split("_")[3]
+    sample_index = (os.path.basename(input_file)).split("_")[3]
     return input_file, output_file, sample_index
 
 
@@ -102,13 +102,13 @@ if __name__ == "__main__":
     args = setupParser()
     input_file, output_file, sample_index = parseArguments(args)
 
-       
-    with gzopen.gzopen(input_file) as input_fastq:
-        line_chunk =  islice(input_fastq, 1e6)
+    print sample_index  
+    #with gzopen.gzopen(input_file) as input_fastq:
+    #    line_chunk =  itertools.islice(input_fastq, 1e6)
 
-        for line in line_chunk:
-            parsed_line = parseLine(line, sample_index = sample_index)
-            print parsed_line
+    #    for line in line_chunk:
+    #        parsed_line = parseLine(line, sample_index = sample_index)
+    #        print parsed_line
     #with gzopen.gzopen(input_file) as input_fastq:
     #    with gzip.open(output_file, "wb") as output_fastq:
             # This opens the fastq file as a datastream
