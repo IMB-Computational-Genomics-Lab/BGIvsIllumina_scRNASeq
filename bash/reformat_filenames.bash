@@ -41,8 +41,8 @@ for N in 2 3 4 5; do
             RENAME1_CMD="""cp "${FILE_R1[@]}" ${OUTPUT_DIR}/${NEW_FILE_R1}"""
             RENAME2_CMD="""cp "${FILE_R2[@]}" ${OUTPUT_DIR}/${NEW_FILE_R2}"""
 
-            echo $RENAME1_CMD
-            echo $RENAME2_CMD
+            $RENAME1_CMD
+            $RENAME2_CMD
         done
     done
 done
