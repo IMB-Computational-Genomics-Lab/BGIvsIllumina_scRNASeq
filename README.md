@@ -32,10 +32,10 @@ This header contains the following information:
 
 These elements can be used to build an Illumina header, though additional information is required.
 
-The script convertHeaders.py converts the above header into the Illumina format as shown below. 
+The script [convertHeaders.py](py/convertHeaders.py) converts the above header into the Illumina format as shown below. 
 
 ```
-@MGISEQ2000:1:V100002704:1:3:1:12 1:N:0:20A
+@MGISEQ2000:1:V100002704:1:3:1:12 1:N:0:AAGACGGA
 ACCTTTAAGACCGGATCGCCTTTATC
 +
 FCFCF7EE3*FFF=>EDAFBF.BFFE
@@ -62,3 +62,9 @@ Illumina headers have the following structure (as taken from [here](http://suppo
            
 Please note that this script will set the instrument ID to MGISEQ-2000.
 
+#### Usage
+```bash
+python2.7 convertHeaders.py /
+        -i BGI/BGISeq_scRNA_Sample1_AAGACGGA_S1_L001_R1_001.fastq.gz \
+        -o Illumina/BGISeq_scRNA_Sample1_AAGACGGA_S1_L001_R1_001.fastq.gz
+```
