@@ -19,7 +19,6 @@ for N in 2 3 4 5; do
     # Define paths to write files out to
     SAMPLE_OUTPUT_DIR=$OUTPUT_DIR/$SAMPLE
     # mkdir -p $SAMPLE_OUTPUT_DIR
-    echo $SAMPLE $INDEX $FASTQ_DIR $SAMPLE_OUTPUT_DIR
 
     # Retrieve line that matches the sample index
     INDEX_LINE=$(grep '^'${INDEX} $INDEX_CSV)
@@ -40,7 +39,7 @@ for N in 2 3 4 5; do
             NEW_FILE_R1=${SAMPLE_NAME}_L00${Y}_R1_001.fastq.gz
             NEW_FILE_R2=${SAMPLE_NAME}_L00${Y}_R2_001.fastq.gz
             RENAME1_CMD="""cp "${FILE_R1[1]}" ${OUTPUT_DIR}/${NEW_FILE_R1}"""
-            RENAME2_CMD="""cp "${FILE_R2[2]}" ${OUTPUT_DIR}/${NEW_FILE_R2}"""
+            RENAME2_CMD="""cp "${FILE_R2[1]}" ${OUTPUT_DIR}/${NEW_FILE_R2}"""
 
             echo $RENAME1_CMD
             echo $RENAME2_CMD
