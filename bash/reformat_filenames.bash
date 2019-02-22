@@ -38,8 +38,8 @@ for N in 2 3 4 5; do
 
             NEW_FILE_R1=${SAMPLE_NAME}_L00${Y}_R1_001.fastq.gz
             NEW_FILE_R2=${SAMPLE_NAME}_L00${Y}_R2_001.fastq.gz
-            RENAME1_CMD="""cp "${FILE_R1[1]}" ${OUTPUT_DIR}/${NEW_FILE_R1}"""
-            RENAME2_CMD="""cp "${FILE_R2[1]}" ${OUTPUT_DIR}/${NEW_FILE_R2}"""
+            RENAME1_CMD="""cp "${FILE_R1[@]}" ${OUTPUT_DIR}/${NEW_FILE_R1}"""
+            RENAME2_CMD="""cp "${FILE_R2[@]}" ${OUTPUT_DIR}/${NEW_FILE_R2}"""
 
             echo $RENAME1_CMD
             echo $RENAME2_CMD
