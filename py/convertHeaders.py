@@ -1,10 +1,9 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+import os
 import argparse
 import re
 import gzip
-import itertools
-import multiprocessing as mp
 
 # Fastq.gz module by Guillaume Filion
 import gzopen
@@ -83,7 +82,7 @@ def parseArguments(args):
     
     # Extract barcode from filename
     sample_index = "AAGACGGA"
-    #sample_index = input_file.split("_")[3]
+    sample_index = input_file.split("_")[3]
     return input_file, output_file, sample_index
 
 
@@ -101,21 +100,11 @@ def setupParser():
 if __name__ == "__main__":
     args = setupParser()
     input_file, output_file, sample_index = parseArguments(args)
-
        
     with gzopen.gzopen(input_file) as input_fastq:
-        line_chunk =  islice(input_fastq, 1e6)
+        with gzip.open(output_file, "wb") as output_fastq:
+            for line in line_chunk:
+                parsed_line = parseLine(line, sample_index = sample_index)
+                output_fastq.write(parsed_line)
 
-        for line in line_chunk:
-            parsed_line = parseLine(line, sample_index = sample_index)
-            print parsed_line
-    #with gzopen.gzopen(input_file) as input_fastq:
-    #    with gzip.open(output_file, "wb") as output_fastq:
-            # This opens the fastq file as a datastream
-            # Light on memory, takes forever though
-
-    #        line_chunk =  islice(input_fastq, 24)
-            
-    #        for line in line_chunk:
-    #            parsed_line = parseLine(line, sample_index = sample_index)
-    #            output_fastq.write(parsed_line)
+    print "Conversion of %s complete!" % input_file
