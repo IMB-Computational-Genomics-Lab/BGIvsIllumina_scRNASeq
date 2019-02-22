@@ -8,7 +8,12 @@ Code repository for the publication "Comparative performance of the BGI and Illu
 ### Reformat filenames
 The Cell Ranger pipeline from 10x Genomics requires filenames to be formatted in a specific manner. As we have the reads organised into paired end reads without an index read file, we need to add the index information to the filename.
 
+The [reformat_filenames.bash](bash/reformat_filenames.bash) parses through the sample information stored in [samplesheet.csv](metadata/samplesheet.csv) and retrieves the sample index sequences associated with the sample from the [chromium-shared-sample-indexes-plate.csv](metadata/chromium-shared-sample-indexes-plate.csv) file. The script then reformats the headers into the correct format. Please modify the script to suite your own filenames if you are using this on your own data.
 
+#### Usage
+```bash
+bash reformat_filenames.bash </path/to/renamed_files>
+```
 
 ### Reformat headers
 Base calls from the BGI MGISEQ-2000 were converted into FastQ format, but the BGI headers were incompatible with the 10x Genomics Cell Ranger 2.2 pipeline as it expects headers to be in Illumina format.

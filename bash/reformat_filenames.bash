@@ -9,7 +9,7 @@ INPUT_CSV=${WORKING_DIR}/metadata/samplesheet.csv
 INDEX_CSV=${WORKING_DIR}/metadata/chromium-shared-sample-indexes-plate.csv
 
 # Define output path
-OUTPUT_DIR=/shares/powell/data/experimental_data/PROCESSING/BGISeq_scRNA
+OUTPUT_DIR=$1
 
 for N in 2 3 4 5; do
     # Read elements from INPUT_CSV
